@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+            <h1> Azure Services </h1>
+            <meta name="description",content="Azure tech services is a popular cloud computing language">
+            <meta charset="utf-8">
+            <meta name="robots",content="index,follow">`
+    </head>
+
+            <body>
+                <h1> Hello there</h1>
+                
+
+
+            </body>
+
+
+</html>

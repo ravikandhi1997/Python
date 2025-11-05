@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Upload file (server-side)</title>
+</head>
+<body>
+  <h1>Upload a file</h1>
+
+  <!-- The form posts to your server. Server should handle saving the file to S3. -->
+  <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput" required />
+    <br/><br/>
+    <input type="text" name="key" placeholder="Optional S3 object key (e.g. folder/name.txt)" />
+    <br/><br/>
+    <button type="submit">Upload</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    // Optional: show a small client-side message on submit
+    document.getElementById('uploadForm').addEventListener('submit', function() {
+      document.getElementById('status').textContent = 'Uploading...';
+    });
+  </script>
+</body>
+</html>
