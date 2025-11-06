@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    environment {
+        AWS_REGION = "ap-south-1"
+        BUCKET_NAME = "my-jenkins-bucket-${BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/<your-username>/aws-s3-jenkins.git'
+            }
+        }
+
+        stage('Create S3 Bucket') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws-creds',
+                                                 usernameVariable: 'AWS_ACCESS_KEY_ID',
+                                                 passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                        chmod +x create_bucket.sh
+                        ./create_bucket.sh $BUCKET_NAME $AWS_REGION
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ S3 bucket created successfully!"
+        }
+        failure {
+            echo "❌ Failed to create bucket. Check logs."
+        }
+    }
+}
